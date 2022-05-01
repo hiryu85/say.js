@@ -40,8 +40,12 @@ class SayPlatformBase {
     }
 
     this.child.stderr.once('data', (data) => {
+      // Skip: "Qt: Untested Windows version x.x detected!" (raised by IVONA 2)
+      if (data.match(/Qt: Untested Windows version \d+.\d+ detected!/i)) {
+        return;
+      }
       // we can't stop execution from this function
-      callback(new Error(data))
+      callback(new Error(data));
     })
 
     this.child.addListener('exit', (code, signal) => {
@@ -101,8 +105,12 @@ class SayPlatformBase {
     }
 
     this.child.stderr.once('data', (data) => {
+      // Skip: "Qt: Untested Windows version x.x detected!" (raised by IVONA 2)
+      if (data.match(/Qt: Untested Windows version \d+.\d+ detected!/i)) {
+        return;
+      }
       // we can't stop execution from this function
-      callback(new Error(data))
+      callback(new Error(data));
     })
 
     this.child.addListener('exit', (code, signal) => {
